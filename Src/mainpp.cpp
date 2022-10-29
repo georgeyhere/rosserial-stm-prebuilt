@@ -69,24 +69,6 @@ void loop(void)
 	nh.spinOnce();
 }
 
-/**
- * @brief Timer callback function; triggers on timer rollover
- * @param htim
- */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	ugv.heading++;
-	ugv.speed++;
-
-	msg_ugv_speed.data = ugv.speed;
-	msg_ugv_heading.data = ugv.heading;
-
-	pub_ugv_speed.publish(&msg_ugv_speed);
-	pub_ugv_heading.publish(&msg_ugv_heading);
-
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-}
-
 void drive_pid_en_cb (const std_msgs::Bool &msg)
 {
     ugv.drive_pid_en = msg.data;

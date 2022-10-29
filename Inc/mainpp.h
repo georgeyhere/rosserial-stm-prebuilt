@@ -27,7 +27,7 @@
 
 
 /*************************************** CONSTANTS ********************************************/
-#define DEBUG_ENABLE
+//#define DEBUG_ENABLE
 #define BUFFER_SIZE 128
 
 
