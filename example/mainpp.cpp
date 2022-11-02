@@ -6,7 +6,23 @@
  *      Author: yoneken
  */
 #include <mainpp.h>
+#include <ros.h>
+#include <std_msgs/Int32.h>
+#include <std_msgs/Bool.h>
+#include <std_msgs/Float32.h>
 
+
+#define BUFFER_SIZE 128
+
+typedef struct {
+    bool  drive_pid_en;
+    int   drive_setpoint;
+    bool  servo_pid_en;
+    int   servo_setpoint;
+    //
+    int   heading;
+    float speed;
+} ugv_t;
 
 ros::NodeHandle nh;
 ugv_t ugv;
@@ -47,7 +63,7 @@ ros::Subscriber<std_msgs::Int32> sub_servo_setpoint ("servo_setpoint", &servo_se
 void setup(void)
 {
 	nh.initNode();
-    
+
 	// PUBLISHER SETUP
     nh.advertise(pub_ugv_speed);
     nh.advertise(pub_ugv_heading);
@@ -61,7 +77,6 @@ void setup(void)
     nh.subscribe(sub_servo_setpoint);
 
     ugv.speed = 0;
-    HAL_TIM_Base_Start_IT(&htim14);
 }
 
 void loop(void)
@@ -88,7 +103,7 @@ void drive_setpoint_cb (const std_msgs::Int32 &msg)
 #ifdef DEBUG_ENABLE
     memset(sendBuffer, 0x00, BUFFER_SIZE);
     sprintf(sendBuffer, "\r\nNew Drive Motor Setpoint: %d\r\n", ugv.drive_setpoint);
-    HAL_UART_Transmit_DMA(&huart2, (uint8_t *) sendBuffer, sizeof(sendBuffer)); 
+    HAL_UART_Transmit_DMA(&huart2, (uint8_t *) sendBuffer, sizeof(sendBuffer));
 #endif
 }
 
