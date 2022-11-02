@@ -31,8 +31,13 @@ Prebuilt ROS C++ ROS library.
 ![top](docs/pics/img_addToPath.png)
 
 8. Modify ROS hardware configuration settings to match the selected board and UART device in /```Core/Inc/ROS/Inc/STM32Hardware.h```
+   
 ![top](docs/pics/img_configureRosHardware.png)
 
 9.  *OPTIONAL* Import the mainpp.h, main.c, and mainpp.cpp files into /Core/Inc and /Core/Src respectively.
 
-10. Build and get no errors!
+10. Your directory should look like this:
+    
+![top](docs/pics/img_directory.png)
+
+11.   Build and get no errors!
